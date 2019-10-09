@@ -14,6 +14,22 @@ const operations = {
         return num1 * num2;
     },
     
+    plusclick(){
+        operation.textContent = "+";
+        input2.focus();
+    },
+    minusclick(){
+        operation.textContent = "-";
+        input2.focus();
+    },
+    multiplyclick(){
+        operation.textContent = "x";
+        input2.focus();
+    },
+    divideclick(){
+        operation.textContent = "/";
+        input2.focus();
+    },
     equalclick () {
         if (input1.value != "" && input1.value != "" &&
             operation.textContent != "operation sign will be here") {
@@ -23,6 +39,7 @@ const operations = {
                 case("x"): result.textContent = operations.multiply(Number(input1.value), Number(input2.value)); break;
                 case("/"): result.textContent = operations.divide(Number(input1.value), Number(input2.value)); break;
             };
+        equal.focus()
         } else {
             operations.clearclick()
         };        
