@@ -21,15 +21,17 @@ clear.addEventListener('click', operations.clearclick);
 input1.addEventListener("keyup", function(event){
     console.log(event.which)
 	switch (event.which) {
-        // case (107): operations.plusup(); break;
-        // case (109): operations.minusup(); break;
-        case (106): operations.multiplyclick(); break;
-        case (111): operations.divideclick(); break;
+        case (107): operations.plusup(); break;
+        case (109): operations.minusup(); break;
+        case (106): operations.multiplyup(); break;
+        case (111): operations.divideup(); break;
         case (13): operations.equalclick(); break;
+        case (27): operations.clearclick(); break;
 	};
 });
 input2.addEventListener("keyup", function(event){
 	switch (event.which) {
         case (13): operations.equalclick(); break;
+        case (27): operations.clearclick(); break;
 	};
 });

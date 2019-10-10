@@ -15,40 +15,83 @@ const operations = {
     },
     
     plusclick(){
-        operation.textContent = "+";
-        input2.focus();
+        if (Number(input1.value)>0 || Number(input1.value<0)) {
+            operation.textContent = "+";
+            input2.focus();
+            input2.select();
+        }
     },
     minusclick(){
-        operation.textContent = "-";
-        input2.focus();
+        if (Number(input1.value)>0 || Number(input1.value<0)) {
+            operation.textContent = "-";
+            input2.focus();
+            input2.select();
+        }
     },
     multiplyclick(){
-        operation.textContent = "x";
-        input2.focus();
+        if (Number(input1.value)>0 || Number(input1.value<0)) {
+            operation.textContent = "x";
+            input2.focus();
+            input2.select();
+        }
     },
     divideclick(){
-        operation.textContent = "/";
-        input2.focus();
+        if (Number(input1.value)>0 || Number(input1.value<0)) {
+            operation.textContent = "/";
+            input2.focus();
+            input2.select();
+        }
+    },
+    plusup() {
+        let inputString = input1.value
+        let inputLength = inputString.length
+        let inputLastLast = inputString[inputLength-2]
+        if (inputLastLast != "e"){
+            input1.value = inputString.substring(0, inputLength-1)
+            operations.plusclick()
+        }
+    },
+    minusup() {
+        let inputString = input1.value
+        let inputLength = inputString.length
+        let inputLastLast = inputString[inputLength-2]
+        if (inputLastLast != "e"){
+            input1.value = inputString.substring(0, inputLength-1)
+            operations.minusclick()
+        }
+    },
+    multiplyup() {
+        let inputString = input1.value
+        let inputLength = inputString.length
+        input1.value = inputString.substring(0, inputLength-1)
+        operations.multiplyclick()
+    },
+    divideup() {
+        let inputString = input1.value
+        let inputLength = inputString.length
+        input1.value = inputString.substring(0, inputLength-1)
+        operations.divideclick()
     },
     equalclick () {
-        if (input1.value != "" && input1.value != "" &&
-            operation.textContent != "operation sign will be here") {
+        if ((Number(input1.value)>0 || Number(input1.value<0)) &&
+            (Number(input2.value)>0 || Number(input2.value<0)) &&
+            operation.textContent != "") {
             switch(operation.textContent) {
                 case("+"): result.textContent = operations.plus(Number(input1.value), Number(input2.value)); break;
                 case("-"): result.textContent = operations.minus(Number(input1.value), Number(input2.value)); break;
                 case("x"): result.textContent = operations.multiply(Number(input1.value), Number(input2.value)); break;
                 case("/"): result.textContent = operations.divide(Number(input1.value), Number(input2.value)); break;
             };
-        equal.focus()
-        } else {
-            operations.clearclick()
-        };        
+        input1.focus();
+        input1.select();
+        }
     },
     clearclick() {
         input1.value = null;
         input2.value = null;
-        operation.textContent = "operation sign will be here";
-        result.textContent = "result will be here";
+        operation.textContent = "";
+        result.textContent = "result";
+        input1.focus()
     },
 };
 
