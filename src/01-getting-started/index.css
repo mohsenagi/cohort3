@@ -85,3 +85,17 @@ html {
 .btn2 {
     border-radius: 5px;
 }
+#idSize2 {
+    display: grid;
+    justify-items: center;
+}
+#idSize3 {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 6px;
+}
+.inputs {
+    justify-self: start;
+    padding: 5px;
+}
