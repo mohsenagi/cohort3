@@ -1,6 +1,7 @@
 import functions from './functions.js';
 import operations from './calculator.js';
 import CanadaTax from './Tax.js';
+import arrayWork from './arrays-objects.js';
 
 
 // **********
@@ -48,9 +49,65 @@ input01.addEventListener("keyup", function(event) {
     input05.value = `= ${finalArray[3].toFixed(2)}$`;
     input06.value = `+ ${finalArray[4].toFixed(2)}$`;
     input07.value = `= ${finalArray[5].toFixed(2)}$`;
-    if (a01 !== 0) {
-        input08.value = `${(finalArray[6]*100).toFixed(2)}%`;
-    } else {
-        input08.value = ""
-    }
-})
+    if (a01 !== 0) input08.value = `${(finalArray[6]*100).toFixed(2)}%`;
+    if (a01 === 0) input08.value = "";
+    })
+
+//working with arrays
+let myArray = []
+Add.addEventListener('click', (() => {
+    let newItem = Number(input001.value);
+    let myArrayMessage = arrayWork.Addclick(myArray, newItem);
+    myArray = myArrayMessage[0]
+    message.textContent = myArrayMessage[1];
+    input001.value = "";
+    input001.focus();
+   }));
+Show.addEventListener('click', (() => {
+    message.textContent = `Here is all items in the array: ${myArray}`;
+    input001.value = "";
+    input001.focus();
+}));
+Total.addEventListener('click', (() => {
+    message.textContent = `The total of all numbers in the array is: ${myArray.reduce(arrayWork.Totalclick, 0)}`
+    input001.value = "";
+    input001.focus();
+}));
+Clear.addEventListener('click', (() => {
+    myArray = []
+    message.textContent = ""
+    input001.value = "";
+    input001.focus();
+}))
+
+//working with Dictionaries
+let provinces = {
+    ab: "Alberta",
+    sk: "Saskatchewan",
+    bc: "British Columbia",
+    mb: "Manitoba",
+    nl: "Newfoundland and Labrador",
+    pe: "Prince Edward Island",
+    ns: "Nova Scotia",
+    nb: "New Brunswick",
+    qc: "Quebec",
+    on: "Ontario",
+    yt: "Yukon",
+    nt: "Northwest Territories",
+    nu: "Nunavut",
+};
+Lookup.addEventListener("click", (() => {
+    let pv = input0001.value.toLowerCase();
+    message2.textContent = arrayWork.pvLookup(pv, provinces);
+    input0001.focus();
+    input0001.select();
+}));
+input0001.addEventListener("keyup", function(event){
+    let pv = input0001.value.toLowerCase();
+	switch (event.which) {
+        case (13): message2.textContent = arrayWork.pvLookup(pv, provinces);
+        input0001.focus();
+        input0001.select();
+        break;
+    };
+});

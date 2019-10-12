@@ -84,6 +84,7 @@ html {
 }
 .btn2 {
     border-radius: 5px;
+    width: 10%;
 }
 #idSize2 {
     display: grid;
