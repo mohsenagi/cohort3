@@ -1,28 +1,28 @@
 
 const operations = {
     
-    addClick: () => {
+    addClick: (varOrderedList) => {
         let itm = document.createElement("li");
-        let txt = document.createTextNode(`Item${orderedList.children.length+1}`);
+        let txt = document.createTextNode(`Item${varOrderedList.children.length+1}`);
         itm.appendChild(txt);
-        orderedList.appendChild(itm);
+        varOrderedList.appendChild(itm);
     },
-    showClick: () => {
+    showClick: (varOrderedListChildren) => {
         let finalArray = [];
-        for (var itm of orderedList.children) {
+        for (var itm of varOrderedListChildren) {
             finalArray.push(itm.textContent);
         }
         alert(finalArray)
     },
-    addStartClick: () =>{
+    addStartClick: (varOrderedList) => {
         let itm2 = document.createElement("li");
-        let txt2 = document.createTextNode(`Item${orderedList.children.length+1}`);
+        let txt2 = document.createTextNode(`Item${varOrderedList.children.length+1}`);
         itm2.appendChild(txt2);
-        orderedList.insertBefore(itm2, (orderedList.children[0]));
+        varOrderedList.insertBefore(itm2, (varOrderedList.children[0]));
     },
-    removeClick: () =>{
-        if (orderedList.children.length > 0)
-        orderedList.removeChild(orderedList.children[orderedList.children.length-1]);
+    removeClick: (varOrderedList) =>{
+        if (varOrderedList.children.length > 0)
+        varOrderedList.removeChild(varOrderedList.children[varOrderedList.children.length-1]);
     },
 };
 
