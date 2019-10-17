@@ -1,5 +1,11 @@
 import functions from './daily.js'
 
+test('forEach', () => {
+    let array1 = [21, 22, 23];
+    expect(functions.forEachPractice(array1)[0])
+        .toEqual(42);
+});
+
 test('for', () => {
     let array1 = [21, 22, 23];
     expect(functions.forPractice(array1)[0])

@@ -5,10 +5,10 @@ html, body {
     height: 100%; 
 }
 body {
-    display: grid;
-    justify-items: center;
-    grid-template-columns: 1fr 1fr;
     overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
 }
 #leftSide {
     width: 100%;
