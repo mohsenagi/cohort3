@@ -6,6 +6,31 @@ test('forEach', () => {
         .toEqual(42);
 });
 
+test('map', () => {
+    let array1 = [21, 22, 23];
+    expect(functions.mapPractice(array1)[0])
+        .toEqual(42);
+});
+
+test('reduce', () => {
+    let array1 = [20, 20, 21, 22, 22];
+    expect(functions.reducePractice(array1))
+        .toEqual(21);
+});
+
+test('filter', () => {
+    let array1 = [30, 20, 21, 22, 23];
+    expect(functions.filterPractice(array1)[0])
+        .toEqual(21);
+});
+
+test('filter', () => {
+    let array1 = [5,21,4,5,78,5,36,5,21,4,5,8,412,54,8,63,25];
+    expect(functions.sortPractice(array1)[0]).toEqual(4);
+    expect(functions.sortPractice(array1)[10]).toEqual(21);
+    expect(functions.sortPractice(array1)[15]).toEqual(78);
+});
+
 test('for', () => {
     let array1 = [21, 22, 23];
     expect(functions.forPractice(array1)[0])

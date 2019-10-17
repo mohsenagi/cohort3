@@ -1,5 +1,32 @@
 const functions = {
     
+    //Daily4 2019.10.17
+    forEachPractice: (array1) => {
+        array1.forEach( (itm, idx, arr) => arr[idx] = itm * 2 )
+        return array1;
+    },
+
+    mapPractice: (array1) => {
+        var array2 = array1.map( itm => itm * 2)
+        return array2;
+    },
+
+    reducePractice: (array1) => {
+        var a1 = array1.reduce( (acc, itm) => acc+itm , 0)
+        var average = a1/array1.length
+        return average;
+    },
+
+    filterPractice: (array1) => {
+        var array2 = array1.filter( (itm, idx) => idx>0 && itm>20)
+        return array2;
+    },
+
+    sortPractice: (array1) => {
+        array1.sort((a, b) => a-b);
+        return array1;
+    },
+
     //Daily4 2019.10.15
     forPractice: (array1) => {
         for (var i=0; i < array1.length; i++) {
