@@ -1,6 +1,18 @@
 const functions = {
     
-    //Daily4 2019.10.17
+    //Daily5 2019.10.17
+    slicePractice: (array1) => {
+        var array2 = array1.slice(0);
+        var array3 = array1.slice(-1);
+        var array4 = array1.slice(1, 3);
+        return [array2, array3, array4];
+    },
+
+    splicePractice: (array1) => {
+        array1.splice(3, 2, 11, 12, 13);
+        return array1;
+    },
+    
     forEachPractice: (array1) => {
         array1.forEach( (itm, idx, arr) => arr[idx] = itm * 2 )
         return array1;

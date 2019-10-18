@@ -1,5 +1,25 @@
 import functions from './daily.js'
 
+test('slice', () => {
+    let array1 = [0, 1, 2, 3, 4, 5];
+    expect(functions.slicePractice(array1)[0][0]).toEqual(0);
+    expect(functions.slicePractice(array1)[1][0]).toEqual(5);
+    expect(functions.slicePractice(array1)[2][1]).toEqual(2);
+});
+
+test('slice String', () => {
+    let string1 = "012345";
+    expect(functions.slicePractice(string1)[0][0]).toEqual("0");
+    expect(functions.slicePractice(string1)[1][0]).toEqual("5");
+    expect(functions.slicePractice(string1)[2][1]).toEqual("2");
+});
+
+test('splice', () => {
+    let array1 = [0, 1, 2, 3, 4, 5];
+    expect(functions.splicePractice(array1)[6]).toEqual(5);
+    expect(functions.splicePractice(array1)[5]).toEqual(13);
+});
+
 test('forEach', () => {
     let array1 = [21, 22, 23];
     expect(functions.forEachPractice(array1)[0])
