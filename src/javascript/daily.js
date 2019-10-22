@@ -1,5 +1,17 @@
 const functions = {
     
+    //Daily 2019.10.22
+
+    loopStaff: (array1) => {
+        const staffEmail = [];
+        for (let itm of array1) {
+            let newEmail = functions.makeEmailObj(itm)
+            staffEmail.push(newEmail);
+        }
+        console.log(staffEmail);
+        return staffEmail;
+    },
+    
     //Daily5 2019.10.17
     slicePractice: (array1) => {
         var array2 = array1.slice(0);

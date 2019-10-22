@@ -45,19 +45,23 @@ const operations = {
     plusup() {
         let inputString = input1.value
         let inputLength = inputString.length
-        let inputLastLast = inputString[inputLength-2]
-        if (inputLastLast != "e"){
-            input1.value = inputString.substring(0, inputLength-1)
-            operations.plusclick()
+        if (inputLength > 1) {
+            let inputLastLast = inputString[inputLength-2]
+            if (inputLastLast != "e"){
+                input1.value = inputString.substring(0, inputLength-1)
+                operations.plusclick()
+            }
         }
     },
     minusup() {
         let inputString = input1.value
         let inputLength = inputString.length
-        let inputLastLast = inputString[inputLength-2]
-        if (inputLastLast != "e"){
-            input1.value = inputString.substring(0, inputLength-1)
-            operations.minusclick()
+        if (inputLength > 1) {
+            let inputLastLast = inputString[inputLength-2]
+            if (inputLastLast != "e"){
+                input1.value = inputString.substring(0, inputLength-1)
+                operations.minusclick()
+            }
         }
     },
     multiplyup() {
