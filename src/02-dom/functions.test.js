@@ -32,4 +32,19 @@ test('Remove Buttons', () => {
     operations.removeClick(ol);
     operations.removeClick(ol);
     expect(ol.children.length).toBe(2);
+    operations.removeClick(ol);
+    operations.removeClick(ol);
+    expect(ol.children.length).toBe(0);
+    operations.removeClick(ol);
+    expect(ol.children.length).toBe(0);
+});
+test('Show Button', () => {
+    let ol = document.createElement("ol");
+    for (var i=1; i < 4; i++) {
+        let itm = document.createElement("li");
+        let txt = document.createTextNode(`Item${i}`);
+        itm.appendChild(txt);
+        ol.appendChild(itm);
+    }
+    expect(operations.showClick(ol.children)).toEqual(['Item1', 'Item2', 'Item3']);
 });

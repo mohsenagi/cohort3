@@ -3,14 +3,14 @@ class Account {
         this.accountType = accountType;
         this.balance = balance;
     }
-    deposit(num) {
-        this.balance = this.balance + num
+    deposite(num) {
+        this.balance = this.balance + num;
     }
     withdraw(num) {
         this.balance = this.balance - num
     }
     checkBalance() {
-        return `The account balance is ${this.balance}$`
+        return `Current balance of your ${this.accountType} is ${this.balance}$`
     }
 }
 
@@ -22,13 +22,18 @@ class Client {
         this.Accounts = [];
     }
     addNewAccount (accountType, balance) {
+        let message;
         if (this.Accounts.filter((itm) => itm.accountType === accountType).length === 0) {
             let newAccount = new Account (accountType, balance);
             this.Accounts.push(newAccount);
+            message = `The new account (type: ${accountType}) with initial balance of ${balance}$ has been added`
+        } else {
+            message = `You already have a ${accountType}, please select a different Account Type`
         }
+        return message;
     }
     removeAccount (accountType) {
-        this.Account = this.Account.filter((itm) => itm[0] != accountType);
+        this.Accounts = this.Accounts.filter((itm) => itm.accountType != accountType);
     }
     totalBalance () {
         return this.Accounts.reduce((acc, itm) => itm.balance+acc, 0);
@@ -43,4 +48,4 @@ class Client {
     }
 }
 
-export { Account, Client}
+export { Account, Client }

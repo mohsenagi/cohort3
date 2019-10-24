@@ -3,11 +3,11 @@ import {Account, Client} from './account.js'
 test('account', () => {
     const checkingAccount = new Account ("Checking Account", 25)
     expect(checkingAccount.balance).toBe(25);
-    checkingAccount.deposit(10);
+    checkingAccount.deposite(10);
     expect(checkingAccount.balance).toBe(35);
     checkingAccount.withdraw(30);
     expect(checkingAccount.balance).toBe(5);
-    expect(checkingAccount.checkBalance()).toBe("The account balance is 5$");
+    expect(checkingAccount.checkBalance()).toBe("Current balance of your Checking Account is 5$");
 });
 
 test('client', () => {
@@ -22,6 +22,11 @@ test('client', () => {
     expect(newClient.Accounts.length).toBe(2);
     expect(newClient.totalBalance()).toEqual(75);
     newClient.addNewAccount("Car Loan", -10000);
+    expect(newClient.Accounts.length).toBe(3);
     expect(newClient.lowestBalance()).toEqual({accountType:'Car Loan', balance:-10000});
     expect(newClient.highestBalance()).toEqual({accountType:'Saving Account', balance:50});
+    expect(newClient.totalBalance()).toEqual(-9925);
+    newClient.removeAccount("Car Loan");
+    expect(newClient.Accounts.length).toBe(2);
+    expect(newClient.totalBalance()).toEqual(75);
 });

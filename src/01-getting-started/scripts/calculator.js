@@ -14,9 +14,9 @@ const operations = {
         return num1 * num2;
     },
     
-    plusclick(){
+    plusclick(operation1){
         if (Number(input1.value)>0 || Number(input1.value<0)) {
-            operation.textContent = "+";
+            operation1.textContent = "+";
             input2.focus();
             input2.select();
         }

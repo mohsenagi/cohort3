@@ -1,12 +1,7 @@
-
-let cardCount = 2;
-
-
 const operations = {
     addAfter: (currentCard, leftSide) => {
         let newCard = currentCard.cloneNode(true);
-        let newCardNumber = Number(cardCount+1);
-        cardCount = cardCount + 1;
+        let newCardNumber = Number(leftSide.children.length-1);
         let newCardHeader = `Card ${newCardNumber}`;
         newCard.children[0].textContent = newCardHeader;
         if (currentCard.nextSibling) {

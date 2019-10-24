@@ -3,12 +3,7 @@ const functions = {
     //Daily 2019.10.22
 
     loopStaff: (array1) => {
-        const staffEmail = [];
-        for (let itm of array1) {
-            let newEmail = functions.makeEmailObj(itm)
-            staffEmail.push(newEmail);
-        }
-        console.log(staffEmail);
+        let staffEmail = array1.map(functions.makeEmailObj);
         return staffEmail;
     },
     

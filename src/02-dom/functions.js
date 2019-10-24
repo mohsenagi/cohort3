@@ -11,8 +11,8 @@ const operations = {
         let finalArray = [];
         for (var itm of varOrderedListChildren) {
             finalArray.push(itm.textContent);
-        }
-        alert(finalArray)
+        };
+        return finalArray;
     },
     addStartClick: (varOrderedList) => {
         let itm2 = document.createElement("li");

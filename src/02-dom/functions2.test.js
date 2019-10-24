@@ -13,7 +13,7 @@ test('Add New, Add After, Add Before, Delete', () => {
     expect(leftSide.children.length).toBe(2);
     operations.addNew(leftSide);
     expect(leftSide.children.length).toBe(3);
-    operations.addNew(leftSide);
+    operations.addAfter(leftSide.children[2], leftSide);
     expect(leftSide.children.length).toBe(4);
     expect(leftSide.children[3].children[0].textContent).toBe("Card 2");
     expect(leftSide.children[2].children[0].textContent).toBe("Card 1");

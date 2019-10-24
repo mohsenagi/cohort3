@@ -7,7 +7,8 @@ add.addEventListener("click", () => {
     operations.addClick(orderedList);
 });
 show.addEventListener("click", () => {
-    operations.showClick(orderedList.children);
+    let finalArray = operations.showClick(orderedList.children);
+    alert(finalArray)
 });
 addStart.addEventListener("click", () => {
     operations.addStartClick(orderedList);
