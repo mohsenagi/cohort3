@@ -1,7 +1,27 @@
 const functions = {
     
+    //Daily 2019.10.25
+    loopStaffForEach: (array1) => {
+        let staffEmail = [];
+        array1.forEach((itm) => staffEmail.push(functions.makeEmailObj(itm)));
+        return staffEmail;
+    },
+    
+    loopStaffMap: (array1) => {
+        let staffEmail = array1.map(functions.makeEmailObj);
+        return staffEmail;
+    },
+    
+    //Daily 2019.10.24
+    loopStaffOf: (array1) => {
+        let staffEmail = [];
+        for (let itm of array1) {
+            staffEmail.push(functions.makeEmailObj(itm));
+        };
+        return staffEmail;
+    },
+    
     //Daily 2019.10.22
-
     loopStaff: (array1) => {
         let staffEmail = array1.map(functions.makeEmailObj);
         return staffEmail;

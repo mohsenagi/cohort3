@@ -15,6 +15,26 @@ const data = {
     prov: "Alberta"
 };
 
+test('email builder for company map', () => {
+    const staffEmail = functions.loopStaffMap(data.staff);
+    expect(staffEmail[0])
+        .toEqual("jane.smith@evolveu.ca");
+    expect(staffEmail[3])
+        .toEqual("olivia.notly@evolveu.ca");
+    expect(staffEmail[6])
+        .toEqual("benjamin.amis@evolveu.ca");
+});
+
+test('email builder for company for Each', () => {
+    const staffEmail = functions.loopStaffForEach(data.staff);
+    expect(staffEmail[0])
+        .toEqual("jane.smith@evolveu.ca");
+    expect(staffEmail[3])
+        .toEqual("olivia.notly@evolveu.ca");
+    expect(staffEmail[6])
+        .toEqual("benjamin.amis@evolveu.ca");
+});
+
 test('email builder for company', () => {
     const staffEmail = functions.loopStaff(data.staff);
     expect(staffEmail[0])
@@ -25,6 +45,15 @@ test('email builder for company', () => {
         .toEqual("benjamin.amis@evolveu.ca");
 });
 
+test ('email builder for company for/of', () => {
+    const staffEmail = functions.loopStaffOf(data.staff);
+    expect(staffEmail[0])
+        .toEqual("jane.smith@evolveu.ca");
+    expect(staffEmail[3])
+        .toEqual("olivia.notly@evolveu.ca");
+    expect(staffEmail[6])
+        .toEqual("benjamin.amis@evolveu.ca");
+});
 
 test('slice', () => {
     let array1 = [0, 1, 2, 3, 4, 5];
