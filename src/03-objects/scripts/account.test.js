@@ -1,4 +1,4 @@
-import {Account, Client} from './account.js'
+import {Account, AccountController} from './account.js'
 
 test('account', () => {
     const checkingAccount = new Account ("Checking Account", 25)
@@ -10,8 +10,8 @@ test('account', () => {
     expect(checkingAccount.checkBalance()).toBe("Current balance of your Checking Account is 5$");
 });
 
-test('client', () => {
-    const newClient = new Client ("Bill", "Gates", "1960.01.01");
+test('AccountController', () => {
+    const newClient = new AccountController ("Bill", "Gates", "1960.01.01");
     newClient.addNewAccount("Checking Account", 25);
     expect(newClient.Accounts.length).toBe(1);
     newClient.addNewAccount("Saving Account", 50);

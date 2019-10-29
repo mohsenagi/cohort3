@@ -14,7 +14,7 @@ class Account {
     }
 }
 
-class Client {
+class AccountController {
     constructor (clientName, clientLastName, clientDOB,) {
         this.clientName = clientName;
         this.clientLastName = clientLastName;
@@ -48,4 +48,4 @@ class Client {
     }
 }
 
-export { Account, Client }
+export { Account, AccountController }
