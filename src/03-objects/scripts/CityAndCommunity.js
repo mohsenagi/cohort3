@@ -1,12 +1,13 @@
 class City {
-    constructor (Name, Latitude, Longitude, Population) {
+    constructor (Key, Name, Latitude, Longitude, Population) {
+        this.key = Key
         this.Name = Name;
         this.Latitude = Latitude;
         this.Longitude = Longitude;
         this.Population = Population;
     }
     show() {
-        return `Name: ${this.Name}\nLatitude: ${this.Latitude}\nLongitude: ${this.Longitude}\nPopulation: ${this.Population}`;
+        return `Name: ${this.Name}, Latitude: ${this.Latitude}, Longitude: ${this.Longitude}, Population: ${this.Population}`;
     }
     movedIn(num) {
         this.Population += num;
@@ -31,10 +32,10 @@ class Community {
     constructor () {
         this.Cities = [];
     }
-    addNewCity (Name, Latitude, Longitude, Population) {
+    addNewCity (Key, Name, Latitude, Longitude, Population) {
         let message;
         if (this.Cities.filter((itm) => (itm.Name === Name && itm.Latitude === Latitude && itm.Longitude === Longitude)).length === 0) {
-            let newCity = new City (Name, Latitude, Longitude, Population);
+            let newCity = new City (Key, Name, Latitude, Longitude, Population);
             this.Cities.push(newCity);
             message = `The new City (name: ${Name}) has been added`
         } else {

@@ -1,0 +1,89 @@
+/* Grid Containers */
+
+html, body {
+    width: 100%;
+    height: 100%; 
+}
+body {
+    overflow: hidden;
+    display: grid;
+    justify-items: center;
+    grid-template-columns: 2fr 1fr;
+}
+#leftSide {
+    width: 100%;
+    max-width: 500px;
+    min-width: 350px;
+    height: 100%;
+    display: grid;
+    justify-items: center;
+    overflow-y: scroll;
+    align-items: start;
+    align-content: start;
+    justify-self: start;
+}
+#rightSide {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    justify-items: center;
+    align-items: start;
+    padding: 20px;
+}
+.cityCard {
+    width: 80%;
+    border: solid;
+    border-color: darkgray;
+    border-style: groove;
+    border-radius: 10px;
+    margin: 2px 2px 10px 2px;
+    padding: 20px 20px 20px 20px;
+    display: grid;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr;
+}
+button {
+    border-radius: 3px;
+    margin: 10px;
+    width: 80%;
+    max-width: 150px;
+}
+h3 {
+    margin: 0px 4px 12px 4px;
+}
+
+
+/* Grid Children */
+.cityHeader {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-items: center;
+}
+.inputField {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    justify-self: center;
+    width: 60%;
+    max-width: 250px;
+}
+.addNew {
+    width: 35%;
+    max-width: 150px;
+}
+#input1,
+#input2,
+#input3,
+#input4 {
+    width: 47%;
+    margin: 1px;
+}
+.MostNorthern,
+.MostSouthern {
+    margin: 10px 2px 2px 2px;
+}
+.totalPopulation {
+    margin: 2px 2px 10px 2px;
+}

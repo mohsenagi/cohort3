@@ -1,14 +1,14 @@
 import {City, Community} from './CityAndCommunity.js'
 
-const Yumai = new City("Yumai", 28, 93, 28)
-const Bonito = new City("Bonito", -21, -56.5, 210)
-const SlvanLake = new City("Sylvan Lake", 52, -114, 15000)
-const SouthBrisbane = new City("South Brisbane", -27, 153, 60000)
-const Calgary = new City("Calgary", 51, -114, 1200000)
+const Yumai = new City(1, "Yumai", 28, 93, 28)
+const Bonito = new City(2, "Bonito", -21, -56.5, 210)
+const SlvanLake = new City(3, "Sylvan Lake", 52, -114, 15000)
+const SouthBrisbane = new City(4, "South Brisbane", -27, 153, 60000)
+const Calgary = new City(5, "Calgary", 51, -114, 1200000)
 
 
 test('show', () => {
-    expect(Calgary.show()).toEqual("Name: Calgary\nLatitude: 51\nLongitude: -114\nPopulation: 1200000");
+    expect(Calgary.show()).toEqual("Name: Calgary, Latitude: 51, Longitude: -114, Population: 1200000");
 });
 
 test("movedIn", () => {
@@ -36,14 +36,14 @@ test('whichHemisphere', () => {
 
 test('Community', () => {
     const newCommunity = new Community;
-    newCommunity.addNewCity("Yumai", 28, 93, 28);
+    newCommunity.addNewCity(1, "Yumai", 28, 93, 28);
     expect(newCommunity.Cities.length).toBe(1);
-    newCommunity.addNewCity("Yumai", 28, 93, 10000);
+    newCommunity.addNewCity(2, "Yumai", 28, 93, 10000);
     expect(newCommunity.Cities.length).toBe(1);
-    newCommunity.addNewCity("Bonito", -21, -56.5, 210);
-    newCommunity.addNewCity("Sylvan Lake", 52, -114, 15000);
-    newCommunity.addNewCity("South Brisbane", -27, 153, 60000);
-    newCommunity.addNewCity("Calgary", 51, -114, 1200000);
+    newCommunity.addNewCity(2, "Bonito", -21, -56.5, 210);
+    newCommunity.addNewCity(3, "Sylvan Lake", 52, -114, 15000);
+    newCommunity.addNewCity(4, "South Brisbane", -27, 153, 60000);
+    newCommunity.addNewCity(5, "Calgary", 51, -114, 1200000);
     expect(newCommunity.Cities.length).toBe(5);
     expect(newCommunity.getPopulation()).toBe(1275238);
     expect(newCommunity.getMostSouthern().Name).toBe("South Brisbane")
