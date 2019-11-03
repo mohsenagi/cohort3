@@ -1,23 +1,71 @@
-import functions from './fetch.js';
+global.fetch = require('node-fetch');
 
-const data = [
-    { "name": "Maricica", "surname": "Ghinea", "gender": "female", "region": "Romania" }, 
-    { "name": "Nishant", "surname": "Bhattarai", "gender": "male", "region": "Nepal" }, 
-    { "name": "Nicuță", "surname": "Lotru", "gender": "male", "region": "Romania" }, 
-    { "name": "Barbara", "surname": "Schneider", "gender": "female", "region": "United States" }, 
-    { "name": "Stanca", "surname": "Grigoriu", "gender": "female", "region": "Romania" }, 
-    { "name": "Bella", "surname": "Musker", "gender": "female", "region": "New Zealand" }, 
-    { "name": "Fabian", "surname": "Dediu", "gender": "male", "region": "Romania" }, 
-    { "name": "Славчо", "surname": "КОСТАДИНОВ", "gender": "male", "region": "Bulgaria" }, 
-    { "name": "Upendra", "surname": "Ranjit", "gender": "male", "region": "Nepal" }, 
-    { "name": "Dumitra", "surname": "Vicovean", "gender": "female", "region": "Romania" }
-];
+import {City, Community} from './CityAndCommunity.js'
+import fetchfunctions from './fetch.js'
 
-test ('getFirstName', () => {
-    expect(functions.getFirstName(data)).toEqual("Maricica");
+test("clear and Load", async () => {
+    let data = await fetchfunctions.clear()
+    let newCommunity = new Community;
+    let highestKey = await fetchfunctions.load(newCommunity);
+    expect(highestKey).toEqual(0)
 });
 
-test ('getAllFirstName', () => {
-    expect(functions.getAllFirstNames(data)[1]).toEqual("Nishant");
-    expect(functions.getAllFirstNames(data)[3]).toEqual("Barbara");
+test("addNew and Load", async () => {
+    let data = await fetchfunctions.addNew({
+        "key": 1,
+        "Name": "Yumai", 
+        "Latitude": 28, 
+        "Longitude": 93, 
+        "Population": 28,
+    });
+    data = await fetchfunctions.addNew({
+        "key": 2,
+        "Name": "Bonito", 
+        "Latitude": -21, 
+        "Longitude": -56.5, 
+        "Population": 210,
+    });
+    data = await fetchfunctions.addNew({
+        "key": 3,
+        "Name": "Sylvan Lake", 
+        "Latitude": 52, 
+        "Longitude": -114, 
+        "Population": 15000,
+    });
+    data = await fetchfunctions.addNew({
+        "key": 4,
+        "Name": "South Brisbane", 
+        "Latitude": -27, 
+        "Longitude": 153, 
+        "Population": 60000,
+    });
+    data = await fetchfunctions.addNew({
+        "key": 5,
+        "Name": "Calgary", 
+        "Latitude": 51, 
+        "Longitude": -114, 
+        "Population": 1200000,
+    });
+    let newCommunity = new Community;
+    let highestKey = await fetchfunctions.load(newCommunity);
+    expect(highestKey).toEqual(5);
+});
+test ("Update", async () => {
+    let data = await fetchfunctions.update({
+        "key": 1,
+        "Name": "Yumai", 
+        "Latitude": 28, 
+        "Longitude": 93, 
+        "Population": 30,
+    });
+    let newCommunity = new Community;
+    let highestKey = await fetchfunctions.load(newCommunity);
+    expect(newCommunity.Cities.filter(itm => itm.key === 1)[0].Population).toEqual(30);
+});
+test ("delete", async() => {
+    let data = await fetchfunctions.delete(1);
+    let newCommunity = new Community;
+    let highestKey = await fetchfunctions.load(newCommunity);
+    expect(highestKey).toEqual(5);
+    expect(newCommunity.Cities.length).toEqual(4);
 });
