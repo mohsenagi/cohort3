@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {Hello, Icon} from './components/MyComponents.js'
+import {Hello, Icon, Game} from './components/MyComponents.js'
 import Handshake from './components/Handshake.jpg'
 import Spaceship from './components/Spaceship.jpg'
 
@@ -18,10 +18,10 @@ class App extends React.Component {
     });
   }
   render () {
-    let message;
-    if (this.state.clickedIcon !== "") {
-      message = <h3>{this.state.clickedIcon}</h3>
-    }
+    // let message;
+    // if (this.state.clickedIcon !== "") {
+    //   message = <h3>{this.state.clickedIcon}</h3>
+    // }
     return (
       <div className="App">
       <header className="App-header">
@@ -30,7 +30,12 @@ class App extends React.Component {
           <Icon Url={Handshake} Name="Handshake"/>
           <Icon Url={Spaceship} Name="Spaceship"/>
         </div>
-        {message}
+        { this.state.clickedIcon === "Handshake" &&
+          <h3>{this.state.clickedIcon}</h3>
+        }
+        { this.state.clickedIcon === "Spaceship" &&
+          <Game />
+        }
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
