@@ -150,9 +150,7 @@ function Square(props) {
         }
 
         let movesList = history.map((itm,idx) => {
-            const desc = idx ?
-            'Go to move #' + idx :
-            'Go to game start';
+            const desc = idx ? 'Go to move #' + idx : 'Go to game start';
             return (
             <li key = {idx}>
             <button onClick={() => this.jumpTo(idx)}>{desc}</button>

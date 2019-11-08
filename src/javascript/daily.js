@@ -1,5 +1,15 @@
 const functions = {
-    
+
+    //Daily 2019.11.08
+    findABandBC: (array1, callBack) => {
+        let ABandBC = array1.filter(itm => itm.province === "AB" || itm.province === "BC" )
+        return callBack(ABandBC);
+    },
+
+    fullName : (array1) => {
+        return array1.map(itm => `${itm.fname} ${itm.lname}`)
+    },
+
     //Daily 2019.10.25
     loopStaffForEach: (array1) => {
         let staffEmail = [];
