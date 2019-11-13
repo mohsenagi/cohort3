@@ -122,16 +122,50 @@ function Square(props) {
         }));
         if (this.state.xIsNext === false &&
             this.state.winner === null &&
-            this.state.players === "One Player") {
-            this.computerPlay();
+            this.state.players === "One Player" &&
+            this.state.level === "World Class") {
+            this.worldClass();
+        }
+        if (this.state.xIsNext === false &&
+            this.state.winner === null &&
+            this.state.players === "One Player" &&
+            this.state.level === "Hard") {
+            this.hard();
+        }
+
+    }
+
+    worldClass () {
+        let goodSquares = this.evaluateSquares();
+        let max = goodSquares[0].value;
+        let bestSquares = goodSquares.filter(itm => itm.value === max);
+        let random = this.getRndInteger(0, bestSquares.length-1)
+        let index = bestSquares[random].index;
+        setTimeout((index) => this.handleClick(index), 250, index)          
+    }
+
+    hard() {
+        let goodSquares = this.evaluateSquares();
+        let max = goodSquares[0].value;
+        let bestSquares = goodSquares.filter(itm => itm.value === max);
+        let goodNotBestSquars = goodSquares.filter(itm => itm.value !== max)
+        goodNotBestSquars.sort((a, b) => (b.value - a.value))
+        let secondMax = goodNotBestSquars[0].value;        
+        let secondBestSquares = goodNotBestSquars.filter(itm => itm.value === secondMax);
+        let smartness = this.getRndInteger(1, 100)
+        if (smartness <=20 && max !== 20 && max !== 18) {
+            let random = this.getRndInteger(0, secondBestSquares.length-1)
+            let index = secondBestSquares[random].index;
+            setTimeout((index) => this.handleClick(index), 250, index)          
+        } else {
+            let random = this.getRndInteger(0, bestSquares.length-1)
+            let index = bestSquares[random].index;
+            setTimeout((index) => this.handleClick(index), 250, index)          
         }
     }
 
-    computerPlay () {
-        let goodSquares = this.evaluateSquares();
-        // console.log(goodSquares);
-        let x = goodSquares[0].index;
-        setTimeout((x) => this.handleClick(x), 250, x)          
+    getRndInteger(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) ) + min;
     }
 
     evaluateSquares() {
@@ -223,16 +257,36 @@ function Square(props) {
             xIsNext: idx%2 === 0,
             winner: winner,
         });
-        if (this.state.xIsNext === false && this.state.winner === null) {
-            this.computerPlay();
+        if (this.state.xIsNext === false &&
+            this.state.winner === null &&
+            this.state.players === "One Player" &&
+            this.state.level === "World Class") {
+            this.worldClass();
         }
+        if (this.state.xIsNext === false &&
+            this.state.winner === null &&
+            this.state.players === "One Player" &&
+            this.state.level === "Hard") {
+            this.hard();
+        }
+
     }
 
     playersChange(event) {
         this.setState({players: event.target.value});
-        if (this.state.xIsNext === false && this.state.winner === null) {
-            this.computerPlay();
+        if (this.state.xIsNext === false &&
+            this.state.winner === null &&
+            this.state.players === "One Player" &&
+            this.state.level === "World Class") {
+            this.worldClass();
         }
+        if (this.state.xIsNext === false &&
+            this.state.winner === null &&
+            this.state.players === "One Player" &&
+            this.state.level === "Hard") {
+            this.hard();
+        }
+
     }
 
     levelChange(event) {

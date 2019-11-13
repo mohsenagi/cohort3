@@ -50,5 +50,7 @@ body {
   }
 
   .Options {
-    margin: 20px;
+    margin: 0px 10px 20px 10px;
+    height: 25px;
+    background-color: rgb(153, 255, 187);
   }
