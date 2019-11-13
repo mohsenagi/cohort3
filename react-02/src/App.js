@@ -3,13 +3,13 @@ import logo from './logo.svg';
 import './App.css';
 import {Hello, Icon, Game} from './components/MyComponents.js'
 import Handshake from './components/Handshake.jpg'
-import Spaceship from './components/Spaceship.jpg'
+import TicTacToe from './components/tic tac toe.jpg'
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      clickedIcon: "",
+      clickedIcon: "tic tac toe",
     };
   }
   onClickfunc = (name) => {
@@ -18,31 +18,21 @@ class App extends React.Component {
     });
   }
   render () {
-    // let message;
-    // if (this.state.clickedIcon !== "") {
-    //   message = <h3>{this.state.clickedIcon}</h3>
-    // }
     return (
       <div className="App">
       <header className="App-header">
         <Hello />
         <div onClick = {(e) => this.onClickfunc(e.target.alt)} className="IconsContainer">
           <Icon Url={Handshake} Name="Handshake"/>
-          <Icon Url={Spaceship} Name="Spaceship"/>
+          <Icon Url={TicTacToe} Name="tic tac toe"/>
         </div>
         { this.state.clickedIcon === "Handshake" &&
           <h3>{this.state.clickedIcon}</h3>
         }
-        { this.state.clickedIcon === "Spaceship" &&
+        { this.state.clickedIcon === "tic tac toe" &&
           <Game />
         }
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
       </header>
       </div>
     );

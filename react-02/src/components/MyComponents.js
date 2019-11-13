@@ -5,7 +5,7 @@ class Hello extends React.Component {
     render () {
         return (
             <div>
-                <h1>Hello World</h1>
+                <h1>My First React App</h1>
             </div>
         );
     }
@@ -97,10 +97,14 @@ function Square(props) {
             stepNumber: 0,
             xIsNext: true,
             winner: null,
+            level: "World Class",
+            players: "One Player"
         }
+        this.playersChange = this.playersChange.bind(this);
+        this.levelChange = this.levelChange.bind(this);
     }
 
-    handleClick(i) {
+    async handleClick(i) {
         let history = this.state.history;
         let current = history[this.state.stepNumber]
         const squares = current.squares.slice();
@@ -110,26 +114,130 @@ function Square(props) {
         this.state.xIsNext ? squares[i] = 'X' : squares[i] = 'O'
         let winner = calculateWinner(squares);
         history.push({squares: squares})
-        this.setState(state => ({
+        await this.setState(state => ({
             history: history,
             stepNumber: history.length-1,
-            xIsNext: (state.stepNumber+1)%2 === 0,
+            xIsNext: !(state.xIsNext),
             winner: winner,
         }));
+        if (this.state.xIsNext === false &&
+            this.state.winner === null &&
+            this.state.players === "One Player") {
+            this.computerPlay();
+        }
     }
 
-    jumpTo(idx) {
+    computerPlay () {
+        let goodSquares = this.evaluateSquares();
+        // console.log(goodSquares);
+        let x = goodSquares[0].index;
+        setTimeout((x) => this.handleClick(x), 250, x)          
+    }
+
+    evaluateSquares() {
+        let history = this.state.history;
+        let current = history[this.state.stepNumber]
+        const squares = current.squares.slice();
+        let evaluatedIndexes = [];
+        const lines = [
+            [0,1,2],
+            [3,4,5],
+            [6,7,8],
+            [0,3,6],
+            [1,4,7],
+            [2,5,8],
+            [0,4,8],
+            [2,4,6]
+        ];
+        for (let itm of lines) {
+            let [a,b,c] = itm;
+            if (squares[a] === null && squares[b] === "O" && squares[c] === "O") {
+                evaluatedIndexes.push({index: a, value: 20});
+            }
+            if (squares[b] === null && squares[a] === "O" && squares[c] === "O") {
+                evaluatedIndexes.push({index: b, value: 20});
+            }
+            if (squares[c] === null && squares[a] === "O" && squares[b] === "O") {
+                evaluatedIndexes.push({index: c, value: 20});
+            }
+            if (squares[a] === null && squares[b] === "X" && squares[c] === "X") {
+                evaluatedIndexes.push({index: a, value: 18});
+            }
+            if (squares[b] === null && squares[a] === "X" && squares[c] === "X") {
+                evaluatedIndexes.push({index: b, value: 18});
+            }
+            if (squares[c] === null && squares[a] === "X" && squares[b] === "X") {
+                evaluatedIndexes.push({index: c, value: 18});
+            }
+            if (squares[a] === null && squares[b] === null && squares[c] === "O") {
+                evaluatedIndexes.push({index: a, value: 10});
+                evaluatedIndexes.push({index: b, value: 10});
+            }
+            if (squares[a] === null && squares[c] === null && squares[b] === "O") {
+                evaluatedIndexes.push({index: a, value: 10});
+                evaluatedIndexes.push({index: c, value: 10});
+            }
+            if (squares[b] === null && squares[c] === null && squares[a] === "O") {
+                evaluatedIndexes.push({index: b, value: 10});
+                evaluatedIndexes.push({index: c, value: 10});
+            }
+            if (squares[a] === null && squares[b] === null && squares[c] === "X") {
+                evaluatedIndexes.push({index: a, value: 9});
+                evaluatedIndexes.push({index: b, value: 9});
+            }
+            if (squares[a] === null && squares[c] === null && squares[b] === "X") {
+                evaluatedIndexes.push({index: a, value: 9});
+                evaluatedIndexes.push({index: c, value: 9});
+            }
+            if (squares[b] === null && squares[c] === null && squares[a] === "X") {
+                evaluatedIndexes.push({index: b, value: 9});
+                evaluatedIndexes.push({index: c, value: 9});
+            }
+        }
+        evaluatedIndexes = evaluatedIndexes.map(itm => {
+            if (
+                ((squares[0] === "X" && squares[8] === "X") ||
+                (squares[2] === "X" && squares[6] === "X")) &&
+                (itm.index === 1 || itm.index === 3 || itm.index === 5 || itm.index === 7)
+                ){
+                return {index: itm.index, value: itm.value+5}
+            } else if (itm.index === 4) {
+                return {index: itm.index, value: itm.value+3}
+            } else if (itm.index === 0 || itm.index === 2 || itm.index === 6 || itm.index === 8) {
+                return {index: itm.index, value: itm.value+2}
+            } else {
+                return {index: itm.index, value: itm.value}
+            }
+        })
+        evaluatedIndexes.sort((a, b) => (b.value - a.value))
+        return evaluatedIndexes;  
+    }
+
+    async jumpTo(idx) {
         let history = this.state.history;
         let current = history[idx];
         const squares = current.squares.slice();
         let winner = calculateWinner(squares);
-        this.setState({
+        await this.setState({
             stepNumber: idx,
             xIsNext: idx%2 === 0,
             winner: winner,
         });
+        if (this.state.xIsNext === false && this.state.winner === null) {
+            this.computerPlay();
+        }
     }
 
+    playersChange(event) {
+        this.setState({players: event.target.value});
+        if (this.state.xIsNext === false && this.state.winner === null) {
+            this.computerPlay();
+        }
+    }
+
+    levelChange(event) {
+        this.setState({level: event.target.value});
+    }
 
     render() {
         let history = this.state.history;
@@ -159,16 +267,29 @@ function Square(props) {
         });
 
         return (
-        <div className="game">
-          <div className="game-board">
-            <Board squares = {squares} onClick = {(i) => this.handleClick(i)} />
-          </div>
-          <div className="game-info">
-            <div>{status}</div>
-            <ol>
-                {movesList}
-            </ol>
-          </div>
+        <div>
+            <select className="Options" value={this.state.players} onChange={this.playersChange}>
+                <option value="One Player">One Player</option>
+                <option value="Two Players">Two Players</option>
+		    </select>
+            {
+            this.state.players === "One Player" &&
+            <select className="Options" value={this.state.level} onChange={this.levelChange}>
+                <option value="World Class">World Class</option>
+                <option value="Hard">Hard</option>
+		    </select>
+            }
+            <div className="game">
+                <div className="game-board">
+                    <Board squares = {squares} onClick = {(i) => this.handleClick(i)} />
+                </div>
+                <div className="game-info">
+                    <div>{status}</div>
+                    <ol>
+                        {movesList}
+                    </ol>
+                </div>
+            </div>
         </div>
       );
     }
