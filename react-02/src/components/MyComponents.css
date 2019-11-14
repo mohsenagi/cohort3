@@ -43,6 +43,7 @@ body {
   .game {
     display: flex;
     flex-direction: row;
+    justify-content: center;
   }
   
   .game-info {
@@ -53,4 +54,11 @@ body {
     margin: 0px 10px 20px 10px;
     height: 25px;
     background-color: rgb(153, 255, 187);
+  }
+
+  .Go {
+    margin: 0px 10px 20px 10px;
+    height: 25px;
+    background-color: mediumturquoise;
+
   }

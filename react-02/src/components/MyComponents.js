@@ -98,10 +98,15 @@ function Square(props) {
             xIsNext: true,
             winner: null,
             level: "World Class",
-            players: "One Player"
+            players: "One Player",
+            first: "User Starts",
+            gameOff: true
         }
         this.playersChange = this.playersChange.bind(this);
         this.levelChange = this.levelChange.bind(this);
+        this.firstChange = this.firstChange.bind(this);
+        this.gameStarts = this.gameStarts.bind(this);
+
     }
 
     async handleClick(i) {
@@ -132,7 +137,6 @@ function Square(props) {
             this.state.level === "Hard") {
             this.hard();
         }
-
     }
 
     worldClass () {
@@ -149,11 +153,11 @@ function Square(props) {
         let max = goodSquares[0].value;
         let bestSquares = goodSquares.filter(itm => itm.value === max);
         let goodNotBestSquars = goodSquares.filter(itm => itm.value !== max)
-        goodNotBestSquars.sort((a, b) => (b.value - a.value))
-        let secondMax = goodNotBestSquars[0].value;        
-        let secondBestSquares = goodNotBestSquars.filter(itm => itm.value === secondMax);
         let smartness = this.getRndInteger(1, 100)
-        if (smartness <=20 && max !== 20 && max !== 18) {
+        if (smartness <=30 && max <18 && goodNotBestSquars.length > 0) {
+            goodNotBestSquars.sort((a, b) => (b.value - a.value))
+            let secondMax = goodNotBestSquars[0].value;        
+            let secondBestSquares = goodNotBestSquars.filter(itm => itm.value === secondMax);
             let random = this.getRndInteger(0, secondBestSquares.length-1)
             let index = secondBestSquares[random].index;
             setTimeout((index) => this.handleClick(index), 250, index)          
@@ -215,17 +219,10 @@ function Square(props) {
                 evaluatedIndexes.push({index: b, value: 10});
                 evaluatedIndexes.push({index: c, value: 10});
             }
-            if (squares[a] === null && squares[b] === null && squares[c] === "X") {
-                evaluatedIndexes.push({index: a, value: 9});
-                evaluatedIndexes.push({index: b, value: 9});
-            }
-            if (squares[a] === null && squares[c] === null && squares[b] === "X") {
-                evaluatedIndexes.push({index: a, value: 9});
-                evaluatedIndexes.push({index: c, value: 9});
-            }
-            if (squares[b] === null && squares[c] === null && squares[a] === "X") {
-                evaluatedIndexes.push({index: b, value: 9});
-                evaluatedIndexes.push({index: c, value: 9});
+            else {
+                if (squares[a] === null) evaluatedIndexes.push({index: a, value: 1});
+                if (squares[b] === null) evaluatedIndexes.push({index: b, value: 1});
+                if (squares[c] === null) evaluatedIndexes.push({index: c, value: 1});
             }
         }
         evaluatedIndexes = evaluatedIndexes.map(itm => {
@@ -252,11 +249,20 @@ function Square(props) {
         let current = history[idx];
         const squares = current.squares.slice();
         let winner = calculateWinner(squares);
-        await this.setState({
-            stepNumber: idx,
-            xIsNext: idx%2 === 0,
-            winner: winner,
-        });
+        if (this.state.first === "User Starts") {
+            await this.setState({
+                stepNumber: idx,
+                xIsNext: idx%2 === 0,
+                winner: winner,
+            });
+        }
+        if (this.state.first === "Computer Starts") {
+            await this.setState({
+                stepNumber: idx,
+                xIsNext: !(idx%2 === 0),
+                winner: winner,
+            });
+        }
         if (this.state.xIsNext === false &&
             this.state.winner === null &&
             this.state.players === "One Player" &&
@@ -269,11 +275,10 @@ function Square(props) {
             this.state.level === "Hard") {
             this.hard();
         }
-
     }
 
-    playersChange(event) {
-        this.setState({players: event.target.value});
+    async playersChange(event) {
+        await this.setState({players: event.target.value});
         if (this.state.xIsNext === false &&
             this.state.winner === null &&
             this.state.players === "One Player" &&
@@ -292,6 +297,28 @@ function Square(props) {
     levelChange(event) {
         this.setState({level: event.target.value});
     }
+
+    firstChange(event) {
+        this.setState({first: event.target.value});
+        this.setState(state => ({xIsNext: !(state.xIsNext)}))
+    }
+
+    gameStarts () {
+        this.setState({gameOff: false});
+        if (this.state.xIsNext === false &&
+            this.state.winner === null &&
+            this.state.players === "One Player" &&
+            this.state.level === "World Class") {
+            this.worldClass();
+        }
+        if (this.state.xIsNext === false &&
+            this.state.winner === null &&
+            this.state.players === "One Player" &&
+            this.state.level === "Hard") {
+            this.hard();
+        }
+    }
+
 
     render() {
         let history = this.state.history;
@@ -322,17 +349,33 @@ function Square(props) {
 
         return (
         <div>
+            {
+            this.state.gameOff &&
             <select className="Options" value={this.state.players} onChange={this.playersChange}>
                 <option value="One Player">One Player</option>
                 <option value="Two Players">Two Players</option>
 		    </select>
+            }
             {
-            this.state.players === "One Player" &&
+            this.state.players === "One Player" && this.state.gameOff &&
             <select className="Options" value={this.state.level} onChange={this.levelChange}>
                 <option value="World Class">World Class</option>
                 <option value="Hard">Hard</option>
 		    </select>
             }
+            {
+            this.state.players === "One Player" && this.state.gameOff &&
+            <select className="Options" value={this.state.first} onChange={this.firstChange}>
+                <option value="User Starts">User Starts</option>
+                <option value="Computer Starts">Computer Starts</option>
+		    </select>
+            }
+            {
+            this.state.gameOff &&
+            <button onClick={this.gameStarts} className="Go">Go</button>
+            }
+            {
+            !(this.state.gameOff) &&
             <div className="game">
                 <div className="game-board">
                     <Board squares = {squares} onClick = {(i) => this.handleClick(i)} />
@@ -344,6 +387,7 @@ function Square(props) {
                     </ol>
                 </div>
             </div>
+            }
         </div>
       );
     }
