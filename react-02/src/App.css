@@ -1,48 +1,34 @@
-.App {
-  text-align: center;
-}
 
 .App-logo {
   height: 40vmin;
 }
 
 .App-header {
+  width: 100%;
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   justify-content: flex-start;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding: 15px 0px 0px 0px;
+  overflow: hidden;
 }
 
 .App-link {
   color: #09d3ac;
 }
 
-.Icons {
-  width: 100px;
-  height: 100px;
-  overflow: hidden;
-  margin: 20px;
-}
-
-.Icons:hover {
-  animation: rotation 5s infinite linear;
-}
-
-@keyframes rotation {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(359deg);
-  }
-}
-
-.IconsContainer {
+.Menue {
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
 }
 
+h3 {
+  margin: 0 0 20px 0;
+  text-align: center;
+}

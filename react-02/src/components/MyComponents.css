@@ -1,64 +1,32 @@
-body {
-    font: 14px "Century Gothic", Futura, sans-serif;
-    margin: 20px;
-  }
-  
-  ol, ul {
-    padding-left: 30px;
-  }
-  
-  .board-row:after {
-    clear: both;
-    content: "";
-    display: table;
-  }
-  
-  .status {
-    margin-bottom: 10px;
-  }
-  
-  .square {
-    background: #fff;
-    border: 1px solid #999;
-    float: left;
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 34px;
-    height: 34px;
-    margin-right: -1px;
-    margin-top: -1px;
-    padding: 0;
-    text-align: center;
-    width: 34px;
-  }
-  
-  .square:focus {
-    outline: none;
-  }
-  
-  .kbd-navigation .square:focus {
-    background: #ddd;
-  }
-  
-  .game {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-  
-  .game-info {
-    margin-left: 20px;
-  }
+.Icons,
+.CityIcon {
+  width: 75px;
+  height: 75px;
+  overflow: hidden;
+  margin: 0px 20px 15px 20px;
+  transition: all 1s;
+}
 
-  .Options {
-    margin: 0px 10px 20px 10px;
-    height: 25px;
-    background-color: rgb(153, 255, 187);
-  }
+.Icons:hover {
+  animation: rotation 5s infinite linear;
+}
 
-  .Go {
-    margin: 0px 10px 20px 10px;
-    height: 25px;
-    background-color: mediumturquoise;
+.CityIcon:hover {
+  transform: scale(1.3);
+}
 
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
   }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.IconsContainer {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  justify-content: center;
+}
