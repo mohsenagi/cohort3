@@ -2,6 +2,7 @@ global.fetch = require('node-fetch');
 
 import {City, Community} from './CityAndCommunity.js'
 import fetchfunctions from './fetch.js'
+import canada from './ca.json'
 
 test("clear and Load", async () => {
     let data = await fetchfunctions.clear()
@@ -11,6 +12,9 @@ test("clear and Load", async () => {
 });
 
 test("addNew and Load", async () => {
+    let Cities = JSON.parse(canada)
+    console.log(Cities);
+    
     let data = await fetchfunctions.addNew({
         "key": 1,
         "Name": "Yumai", 

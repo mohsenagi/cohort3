@@ -29,23 +29,29 @@ class CityandCommunity extends React.Component {
         super ()
         this.state = {
             message: "Please wait ...",
-            community: {},
+            community: new Community(),
             counter: 1,
             selected: false,
             newCityName: "",
             newCityLat: "",
             newCityLong: "",
             newCityPop: "",
+            movingNumber: "",
+            search: ""
         }
         this.unselect = this.unselect.bind(this);
         this.newCityNameChange = this.newCityNameChange.bind(this);
         this.newCityLatChange = this.newCityLatChange.bind(this);
         this.newCityLongChange = this.newCityLongChange.bind(this);
         this.newCityPopChange = this.newCityPopChange.bind(this);
+        this.movingNumberChange = this.movingNumberChange.bind(this);
+        this.searchChange = this.searchChange.bind(this);
         this.addNew = this.addNew.bind(this);
         this.total = this.total.bind(this);
         this.north = this.north.bind(this);
         this.south = this.south.bind(this);
+        this.moveIn = this.moveIn.bind(this);
+        this.moveOut = this.moveOut.bind(this);
     }
     componentDidMount(){
         let newCommunity = new Community();
@@ -73,22 +79,23 @@ class CityandCommunity extends React.Component {
         );
     }
     async delete(key) {
+        if (this.state.message === "Please wait ...") return
         let message = "Please wait ..."
         this.setState({message: message})
         let newCommunity = this.state.community;
         let selectedCity = newCommunity.Cities.filter(itm => itm.key === key);
         let selectedCityName = selectedCity[0].Name;
         try {
-            let data = await fetchfunctions.delete(key)
+            await fetchfunctions.delete(key)
             newCommunity.removeCity(key);
             message = `${selectedCityName} has been removed.`
         }catch(error){
             message = `We are sorry!! something went wrong while saving data.\n${error}`;
-            console.log(newCommunity);
         }
         this.setState({community : newCommunity, selected : null, message : message});
     }
     async addNew () {
+        if (this.state.message === "Please wait ...") return
         if (this.state.newCityName !== "" && this.state.newCityLat !== "" && this.state.newCityLong !== ""){
             this.setState({message: "Please wait ..."})
             let newCommunity = this.state.community;
@@ -96,7 +103,7 @@ class CityandCommunity extends React.Component {
                 Number(this.state.newCityLat), Number(this.state.newCityLong), Number(this.state.newCityPop));
             if (message.includes("added")) {
                 try {
-                    let data = await fetchfunctions.addNew(newCommunity.Cities.filter((itm) => itm.key === this.state.counter)[0]);
+                    await fetchfunctions.addNew(newCommunity.Cities.filter((itm) => itm.key === this.state.counter)[0]);
                     this.setState({
                                 newCityName: "",
                                 newCityLat: "",
@@ -105,60 +112,124 @@ class CityandCommunity extends React.Component {
                 } catch(error) {
                     message = `We are sorry!! something went wrong while saving data.\n${error}`
                     newCommunity.removeCity(this.state.counter);
-                    console.log(newCommunity);
                 }
             }
             this.setState({message: message})
         } 
     }
     total () {
+        if (this.state.message === "Please wait ...") return
         let newCommunity = this.state.community;
         let message = `The total population of the community is ${newCommunity.getPopulation()}`
         this.setState({message: message})
     }
     north () {
+        if (this.state.message === "Please wait ...") return
         let newCommunity = this.state.community;
         let MostNorthern = newCommunity.getMostNorthern();
         let message = `${MostNorthern.Name} is the most southern city with the latitude of ${MostNorthern.Latitude}.`
         this.setState({message: message})
     }
     south () {
+        if (this.state.message === "Please wait ...") return
         let newCommunity = this.state.community;
         let MostSouthern = newCommunity.getMostSouthern();
         let message = `${MostSouthern.Name} is the most southern city with the latitude of ${MostSouthern.Latitude}.`
         this.setState({message: message})
     }
 
+    async moveIn () {
+        if (this.state.message === "Please wait ...") return
+        if (this.state.movingNumber !== "") {
+            let message = "Please wait ..."
+            this.setState({message: message})
+            let newCommunity = this.state.community;
+            let key = this.state.selected;
+            let selectedCity = newCommunity.Cities.filter(itm => itm.key === key)[0];
+            let selectedCityName = selectedCity.Name;
+            let number = Number(this.state.movingNumber)
+            selectedCity.movedIn(number)
+            try {
+                await fetchfunctions.update(selectedCity)
+                message = `${number} people has moved in to ${selectedCityName}.`
+            }catch(error){
+                message = `We are sorry!! something went wrong while saving data.\n${error}`
+                selectedCity.movedOut(number);
+            }
+            this.setState({message: message, movingNumber: ""})
+        }
+
+    }
+
+    async moveOut () {
+        if (this.state.message === "Please wait ...") return
+        if (this.state.movingNumber !== "") {
+            let message = "Please wait ..."
+            this.setState({message: message})
+            let newCommunity = this.state.community;
+            let key = this.state.selected;
+            let selectedCity = newCommunity.Cities.filter(itm => itm.key === key)[0];
+            let selectedCityName = selectedCity.Name;
+            let number = Number(this.state.movingNumber)
+            selectedCity.movedOut(number)
+            try {
+                await fetchfunctions.update(selectedCity)
+                message = `${number} people has moved in to ${selectedCityName}.`
+            }catch(error){
+                message = `We are sorry!! something went wrong while saving data.\n${error}`
+                selectedCity.movedIn(number);
+            }
+            this.setState({message: message, movingNumber: ""})
+        }
+
+    }
+
     newCityNameChange (event) {
+        if (this.state.message === "Please wait ...") return
         this.setState({newCityName: event.target.value});
     }
     newCityLatChange (event) {
+        if (this.state.message === "Please wait ...") return
         this.setState({newCityLat: event.target.value});
     }
     newCityLongChange (event) {
+        if (this.state.message === "Please wait ...") return
         this.setState({newCityLong: event.target.value});
     }
     newCityPopChange (event) {
+        if (this.state.message === "Please wait ...") return
         this.setState({newCityPop: event.target.value});
+    }
+    movingNumberChange (event) {
+        if (this.state.message === "Please wait ...") return
+        this.setState({movingNumber: event.target.value});
+    }
+    searchChange (event) {
+        if (this.state.message === "Please wait ...") return
+        this.setState({search: event.target.value});
     }
 
     select(e, key) {
+        if (this.state.message === "Please wait ...") return
         if (e.target.className === "closeX") return;        
         this.setState({selected: key, message: ""})
     }
     unselect(e) {
+        if (this.state.message === "Please wait ...") return
         if (e.target.className === "CityandCommunity" ||
             e.target.id === "leftSide" ||
             e.target.id === "rightSide" ) {
-                this.setState({selected: null, message: ""})
-            }
+                this.setState({selected: null})
+            };
     }
 
     render () {
         let newCommunity = this.state.community;
         let cities = [];
         if (newCommunity.Cities) cities = newCommunity.Cities
-        let cards = cities.map((itm, idx) =>{
+        let citiesFiltered = this.state.search === "" ? cities :
+            cities.filter(itm => itm.Name.toLowerCase().includes(this.state.search.toLowerCase()));
+        let cards = citiesFiltered.map((itm, idx) =>{
             return(
                 <Card city={itm} key={itm.key} index={idx} selected={this.state.selected}
                 onClick={(e, key) => this.select(e, key)} delete ={(key => this.delete(key))} />
@@ -185,11 +256,13 @@ class CityandCommunity extends React.Component {
                     </div>
                         <button className="addNew" onClick ={this.addNew} >Add New City</button>
                         <div id = "cardsContainer">
-                            {cards.length > 1 &&
+                            {cities.length > 1 &&
                             <div className = "extra">
                                 <button className = "extraButtons" onClick={this.total} >Total Population</button>
                                 <button className = "extraButtons" onClick={this.north}>Most Northern</button>
                                 <button className = "extraButtons" onClick={this.south}>Most Southern</button>
+                                <input type="text" placeholder="Search by Name" id="input6"
+                                value={this.state.search} onChange={this.searchChange}></input>
                             </div>}
                             {cards}
                         </div>
@@ -202,9 +275,10 @@ class CityandCommunity extends React.Component {
                             {cityInfo}
                         </div>
                         <div className = "moving">
-                            <input type="number" placeholder="Number of people" id="input5"></input>
-                            <button className="moveIn">Moved In</button>
-                            <button className="moveOut">Moved Out</button>
+                            <input type="number" placeholder="Number of people" id="input5"
+                            value={this.state.movingNumber} onChange={this.movingNumberChange}></input>
+                            <button className="moveIn" onClick ={this.moveIn} >Moved In</button>
+                            <button className="moveOut" onClick ={this.moveOut}>Moved Out</button>
                         </div>
                     </div>
                     }

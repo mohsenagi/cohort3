@@ -11,10 +11,9 @@
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(16px + 6 * ((100vw - 300px) / 1300));
   color: white;
   padding: 15px 0px 0px 0px;
-  overflow: hidden;
 }
 
 .App-link {

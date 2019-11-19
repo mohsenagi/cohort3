@@ -39,20 +39,19 @@ const fetchfunctions = {
     },
 
     async clear() {
-        let data = await this.postData(url + 'clear');
+        await this.postData(url + 'clear');
     },
 
     async addNew(newCity) {
-        let data = await this.postData(url + 'add', newCity);
-        return data;
+        await this.postData(url + 'add', newCity);
     },
 
     async update(currentCity) {
-        let data = await this.postData(url + 'update', currentCity);
+        await this.postData(url + 'update', currentCity);
     },
 
     async delete(foundKey) {
-        let data = await this.postData(url + 'delete', {key: foundKey});
+        await this.postData(url + 'delete', {key: foundKey});
     }
 
 }
