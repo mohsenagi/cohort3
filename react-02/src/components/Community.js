@@ -22,8 +22,6 @@ class Card extends React.Component {
     }
 }
 
-
-
 class CityandCommunity extends React.Component {
     constructor () {
         super ()
@@ -58,8 +56,8 @@ class CityandCommunity extends React.Component {
         let counter
         let highestKey = fetchfunctions.load(newCommunity);
         highestKey.then(result => {
-            counter = result+1;
             if (newCommunity.Cities.length >= 1) {
+                counter = result+1;
                 this.setState({
                     message : `Server data successfully loaded.\n`+
                     `There are currently ${newCommunity.Cities.length} Cities.`
@@ -67,19 +65,35 @@ class CityandCommunity extends React.Component {
                 this.setState({community : newCommunity, counter : counter})
             } else{
                 this.setState({
-                    message : `Connected to the server.\nThere is no saved data to load, but you can start adding NOW.`
+                    message : `Loading major Canadian Cities to the server.\nPlease wait ...`
                 })
+                this.loadCanada()
             }
-            }
-            , reject => {
-                this.setState({
-                    message : `We are sorry!! something went wrong while loading saved data.\n${reject}`
-                })
-            }
+        }, reject => {
+            this.setState({
+                message : `We are sorry!! something went wrong while loading saved data.\n${reject}`
+            })
+        }
         );
     }
+    
+    async loadCanada () {
+        let cityCana = await fetchfunctions.loadLocal();
+        let newCommunity = this.state.community;
+        cityCana.forEach(itm => {
+            newCommunity.addNewCity(this.state.counter, itm.city,
+            Number(itm.lat), Number(itm.lng), Number(itm.population));
+            fetchfunctions.addNew(newCommunity.Cities.filter((itm) => itm.key === this.state.counter)[0])
+            .then(this.setState({counter : this.state.counter+1}));
+        });
+        this.setState({
+            message : `major Canadian Cities successfully loaded.\n`+
+            `There are currently ${newCommunity.Cities.length} Cities.`
+        })
+    }
+
     async delete(key) {
-        if (this.state.message === "Please wait ...") return
+        if (this.state.message.includes("Please wait ...")) return
         let message = "Please wait ..."
         this.setState({message: message})
         let newCommunity = this.state.community;
@@ -95,7 +109,7 @@ class CityandCommunity extends React.Component {
         this.setState({community : newCommunity, selected : null, message : message});
     }
     async addNew () {
-        if (this.state.message === "Please wait ...") return
+        if (this.state.message.includes("Please wait ...")) return
         if (this.state.newCityName !== "" && this.state.newCityLat !== "" && this.state.newCityLong !== ""){
             this.setState({message: "Please wait ..."})
             let newCommunity = this.state.community;
@@ -108,7 +122,8 @@ class CityandCommunity extends React.Component {
                                 newCityName: "",
                                 newCityLat: "",
                                 newCityLong: "",
-                                newCityPop: "",})
+                                newCityPop: "",
+                                counter : this.state.counter+1})
                 } catch(error) {
                     message = `We are sorry!! something went wrong while saving data.\n${error}`
                     newCommunity.removeCity(this.state.counter);
@@ -118,20 +133,20 @@ class CityandCommunity extends React.Component {
         } 
     }
     total () {
-        if (this.state.message === "Please wait ...") return
+        if (this.state.message.includes("Please wait ...")) return
         let newCommunity = this.state.community;
         let message = `The total population of the community is ${newCommunity.getPopulation()}`
         this.setState({message: message})
     }
     north () {
-        if (this.state.message === "Please wait ...") return
+        if (this.state.message.includes("Please wait ...")) return
         let newCommunity = this.state.community;
         let MostNorthern = newCommunity.getMostNorthern();
         let message = `${MostNorthern.Name} is the most southern city with the latitude of ${MostNorthern.Latitude}.`
         this.setState({message: message})
     }
     south () {
-        if (this.state.message === "Please wait ...") return
+        if (this.state.message.includes("Please wait ...")) return
         let newCommunity = this.state.community;
         let MostSouthern = newCommunity.getMostSouthern();
         let message = `${MostSouthern.Name} is the most southern city with the latitude of ${MostSouthern.Latitude}.`
@@ -139,7 +154,7 @@ class CityandCommunity extends React.Component {
     }
 
     async moveIn () {
-        if (this.state.message === "Please wait ...") return
+        if (this.state.message.includes("Please wait ...")) return
         if (this.state.movingNumber !== "") {
             let message = "Please wait ..."
             this.setState({message: message})
@@ -162,7 +177,7 @@ class CityandCommunity extends React.Component {
     }
 
     async moveOut () {
-        if (this.state.message === "Please wait ...") return
+        if (this.state.message.includes("Please wait ...")) return
         if (this.state.movingNumber !== "") {
             let message = "Please wait ..."
             this.setState({message: message})
@@ -185,37 +200,37 @@ class CityandCommunity extends React.Component {
     }
 
     newCityNameChange (event) {
-        if (this.state.message === "Please wait ...") return
+        if (this.state.message.includes("Please wait ...")) return
         this.setState({newCityName: event.target.value});
     }
     newCityLatChange (event) {
-        if (this.state.message === "Please wait ...") return
+        if (this.state.message.includes("Please wait ...")) return
         this.setState({newCityLat: event.target.value});
     }
     newCityLongChange (event) {
-        if (this.state.message === "Please wait ...") return
+        if (this.state.message.includes("Please wait ...")) return
         this.setState({newCityLong: event.target.value});
     }
     newCityPopChange (event) {
-        if (this.state.message === "Please wait ...") return
+        if (this.state.message.includes("Please wait ...")) return
         this.setState({newCityPop: event.target.value});
     }
     movingNumberChange (event) {
-        if (this.state.message === "Please wait ...") return
+        if (this.state.message.includes("Please wait ...")) return
         this.setState({movingNumber: event.target.value});
     }
     searchChange (event) {
-        if (this.state.message === "Please wait ...") return
+        if (this.state.message.includes("Please wait ...")) return
         this.setState({search: event.target.value});
     }
 
     select(e, key) {
-        if (this.state.message === "Please wait ...") return
+        if (this.state.message.includes("Please wait ...")) return
         if (e.target.className === "closeX") return;        
         this.setState({selected: key, message: ""})
     }
     unselect(e) {
-        if (this.state.message === "Please wait ...") return
+        if (this.state.message.includes("Please wait ...")) return
         if (e.target.className === "CityandCommunity" ||
             e.target.id === "leftSide" ||
             e.target.id === "rightSide" ) {

@@ -18,10 +18,14 @@ const fetchfunctions = {
             body: JSON.stringify(data)  // body data type must match "Content-Type" header
         });
         const json = await response.json();    // parses JSON response into native JavaScript objects
-        // console.log(response.status)
-        // console.log(response.statusText)
-        // console.log(response);
-        // console.log(json);        
+        json.status = response.status;
+        json.statusText = response.statusText;
+        return json;
+    },
+
+    async loadLocal () {
+        const response = await fetch('https://cors-anywhere.herokuapp.com/https://simplemaps.com/static/data/country-cities/ca/ca.json');
+        const json = await response.json();
         return json;
     },
 
@@ -43,7 +47,8 @@ const fetchfunctions = {
     },
 
     async addNew(newCity) {
-        await this.postData(url + 'add', newCity);
+        let data = await this.postData(url + 'add', newCity);
+        return data;
     },
 
     async update(currentCity) {
