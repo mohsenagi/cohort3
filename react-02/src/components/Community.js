@@ -80,15 +80,19 @@ class CityandCommunity extends React.Component {
     async loadCanada () {
         let cityCana = await fetchfunctions.loadLocal();
         let newCommunity = this.state.community;
-        cityCana.forEach(itm => {
-            newCommunity.addNewCity(this.state.counter, itm.city,
+        for (let i=0; i < cityCana.length; i++) {
+            let itm = cityCana[i];
+            newCommunity.addNewCity(i+1, itm.city,
             Number(itm.lat), Number(itm.lng), Number(itm.population));
-            fetchfunctions.addNew(newCommunity.Cities.filter((itm) => itm.key === this.state.counter)[0])
-            .then(this.setState({counter : this.state.counter+1}));
-        });
+            await fetchfunctions.addNew(newCommunity.Cities.filter((itm) => itm.key === i+1)[0]);
+            await this.setState({
+                message : `Loading major Canadian Cities to the server.\nPlease wait ...\n${i+1} out of ${cityCana.length} Cities have benn added.`
+            });
+        };
         this.setState({
             message : `major Canadian Cities successfully loaded.\n`+
-            `There are currently ${newCommunity.Cities.length} Cities.`
+            `There are currently ${newCommunity.Cities.length} Cities.`,
+            counter : newCommunity.Cities.length+1
         })
     }
 

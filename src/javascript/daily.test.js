@@ -1,5 +1,11 @@
 import functions from './daily.js'
 
+test('findABandBC and ageStat', () => {
+    expect(functions.findABandBC(people, functions.ageStat).Number_of_People).toEqual(22);
+    expect(functions.findABandBC(people, functions.ageStat).Total_Age).toEqual(838);
+    expect(functions.findABandBC(people, functions.ageStat).Average_Age).toEqual(38.1);
+})
+
 test('findABandBC and fullName', () => {
     expect(functions.findABandBC(people, array1 => array1)[3].province).toEqual("AB");
     expect(functions.findABandBC(people, array1 => array1)[2].province).toEqual("BC");

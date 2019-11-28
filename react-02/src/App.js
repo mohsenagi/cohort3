@@ -3,17 +3,19 @@ import logo from './logo.svg';
 import './App.css';
 import {Hello, Icon} from './components/MyComponents.js'
 import {Game} from './components/TicTacToe.js'
+import { CityandCommunity } from './components/Community.js'
+import { LinkedListDisplay } from './components/LinkedListComponent.js'
 import Handshake from './components/Handshake.jpg'
 import TicTacToe from './components/tic tac toe.jpg'
 import City from './components/City.jpg'
-import { CityandCommunity } from './components/Community';
+import LinkedList from './components/LinkedList.jpg'
 
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      clickedIcon: "City and Community",
+      clickedIcon: "LinkedList",
     };
   }
   onClickfunc = (name) => {
@@ -31,6 +33,7 @@ class App extends React.Component {
           <Icon ClassName= "Icons" Url={Handshake} Name="Handshake"/>
           <Icon ClassName= "Icons" Url={TicTacToe} Name="tic tac toe"/>
           <Icon ClassName= "CityIcon" Url={City} Name="City and Community"/>
+          <Icon ClassName= "CityIcon" Url={LinkedList} Name="LinkedList"/>
         </div>
         <div className="App-header">
           { this.state.clickedIcon === "Handshake" &&
@@ -51,6 +54,12 @@ class App extends React.Component {
           <div>
             <h3>Your Community</h3>
             <CityandCommunity />
+          </div>
+          }
+          { this.state.clickedIcon === "LinkedList" &&
+          <div>
+            <h3>Linked List</h3>
+            <LinkedListDisplay />
           </div>
           }
         </div>

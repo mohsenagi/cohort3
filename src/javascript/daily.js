@@ -1,5 +1,13 @@
 const functions = {
 
+    //Daily 2019.11.21
+    ageStat: (array1) => {
+        let numberPeaople = array1.length;
+        let totalAge = array1.reduce((acc, itm) => acc+itm.age , 0);
+        let averageAge = totalAge/numberPeaople;
+        return {Number_of_People : numberPeaople, Total_Age : totalAge, Average_Age : Number(averageAge.toFixed(1))}
+    },
+    
     //Daily 2019.11.08
     findABandBC: (array1, callBack) => {
         let ABandBC = array1.filter(itm => itm.province === "AB" || itm.province === "BC" )
