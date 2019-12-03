@@ -165,6 +165,7 @@ h2 {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     background-Color: rgb(255, 255, 255, 0.3);
+    color: white;
 }
 
 .Card2 {
@@ -174,6 +175,7 @@ h2 {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     background-Color: rgb(255, 255, 255, 0.4);
+    color: white;
 }
 
 .selectedCard {
@@ -183,6 +185,7 @@ h2 {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     background-Color: rgb(150, 145, 235);
+    color: white;
 }
 
 .closeX {

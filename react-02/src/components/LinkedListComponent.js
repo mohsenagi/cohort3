@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
-import './LinkedList.css';
+import React, { useState, useEffect, useContext  } from 'react';
+import './LinkedListComponent.css';
+import {ThemeContext} from './Contexts.js'
 
-import {ListNode, LinkedList} from './scripts/LinkedList.js'
+import {LinkedList} from './scripts/LinkedList.js'
 
 let list = new LinkedList();
 
 function LinkedListDisplay() {
-    const [target, setTarget] = useState(null);
+    // const [target, setTarget] = useState(null);
     const [subject, setSubject] = useState("");
     const [amount, setAmount] = useState("");
+    const [focus, setFocus] = useState("subject")
+
+    const context = useContext (ThemeContext);
+    let target = context.LinkedListTarget;
+    let setTarget = context.changeTarget;
+    
+    useEffect(() => {
+        document.getElementById(focus).focus();
+    });
 
     function InsertatStart () {
         if (subject === "" || amount === "") return;
@@ -16,6 +26,7 @@ function LinkedListDisplay() {
         setSubject("");
         setAmount("");
         setTarget(list.head);
+        setFocus("subject");
     }
 
     function InsertatEnd () {
@@ -24,6 +35,7 @@ function LinkedListDisplay() {
         setSubject("");
         setAmount("");
         setTarget(list.tail());
+        setFocus("subject");
     }
 
     function Insert () {
@@ -34,6 +46,7 @@ function LinkedListDisplay() {
         setSubject("");
         setAmount("");
         setTarget(current.next);
+        setFocus("subject");
     }
     
     function enter (e) {
@@ -77,7 +90,7 @@ function LinkedListDisplay() {
   
     return (
         <div className = "LinkedListCntroller">
-            <p className = "currentNode">{target? target.show() : "Nothing to Show"}</p>
+            <p className = "currentNode">{target? `Current ${target.show()}` : "Nothing to Show"}</p>
             <div>
                 <button onClick = {InsertatStart} className = "allButtons">Insert at Start</button>
                 <button onClick = {FindStart} className = "allButtons">{"<<"}</button>
@@ -90,9 +103,9 @@ function LinkedListDisplay() {
             </div>
             <div>
                 <input type="text" placeholder="Subject" id="subject"
-                value={subject} onChange={(e) => setSubject(e.target.value)} onKeyPress={enter}></input>
+                value={subject} onChange={(e) => {setSubject(e.target.value); setFocus("subject")}} onKeyPress={enter}></input>
                 <input type="number" placeholder="Amount" id="amount"
-                value={amount} onChange={(e) => setAmount(e.target.value)} onKeyPress={enter}></input>
+                value={amount} onChange={(e) => {setAmount(e.target.value); setFocus("amount")}} onKeyPress={enter}></input>
             </div>
             <p className = "allNodes">{list.show()}</p>
         </div>

@@ -4,6 +4,7 @@ font: 14px "Century Gothic", Futura, sans-serif;
 
 ol, ul {
 padding-left: 30px;
+color: white;
 }
 
 .board-row:after {
@@ -53,7 +54,9 @@ margin-left: 20px;
 .Options {
 margin: 0px 10px 20px 10px;
 height: 25px;
-background-color: rgb(153, 255, 187);
+background-color: rgb(199, 255, 218);
+border-radius: 3px;
+border: none;
 }
 
 .Go {

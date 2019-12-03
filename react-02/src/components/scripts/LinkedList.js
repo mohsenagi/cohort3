@@ -7,7 +7,7 @@ class ListNode{
     }
 
     show() {
-        return `subject is ${this.subject} and amount is ${this.amount}`
+        return `subject is "${this.subject}" and amount is "${this.amount}"`
     }
 
     deleteFrom(list) {
@@ -65,7 +65,7 @@ class LinkedList{
         let target = this.find(index);
         if (target === "index not found") return "index not found";
         let newNode = new ListNode(subject, amount, target.next, target);
-        target.next.prev = newNode;
+        if(target.next !== null) target.next.prev = newNode;
         target.next = newNode;
         return;
     }
