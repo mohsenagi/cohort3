@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import {Hello, Icon} from './components/MyComponents.js'
+import {Nav} from './components/Nav.js'
 import {Game} from './components/TicTacToe.js'
 import { CityandCommunity } from './components/Community.js'
 import { LinkedListDisplay } from './components/LinkedListComponent.js'
@@ -11,11 +11,11 @@ import {ThemeProvider} from './components/Contexts.js'
 import {ThemeContext} from './components/Contexts.js'
 
 import logo from './components/Icons/logo.svg';
-import Handshake from './components/Icons/Handshake.jpg'
-import TicTacToe from './components/Icons/tic tac toe.jpg'
-import City from './components/Icons/City.jpg'
-import LinkedList from './components/Icons/LinkedList.jpg'
-import Settings from './components/Icons/Settings.png'
+import {ReactComponent as Handshake} from './components/Icons/Handshake.svg'
+import {ReactComponent as TicTacToe} from './components/Icons/tic tac toe.svg'
+import {ReactComponent as City} from './components/Icons/City.svg'
+import {ReactComponent as LinkedList} from './components/Icons/LinkedList.svg'
+import {ReactComponent as Settings} from './components/Icons/Settings.svg'
 
 class AppHeader extends React.Component{
   static contextType = ThemeContext;
@@ -77,13 +77,18 @@ class App extends React.Component {
     return (
       <ThemeProvider>
         <div className="Menue">
-          <Hello />
-          <div onClick = {(e) => this.onClickfunc(e.target.alt)} className="IconsContainer">
-            <Icon ClassName= "Icons" Url={Handshake} Name="Handshake"/>
-            <Icon ClassName= "Icons" Url={TicTacToe} Name="tic tac toe"/>
-            <Icon ClassName= "CityIcon" Url={City} Name="City and Community"/>
-            <Icon ClassName= "CityIcon" Url={LinkedList} Name="LinkedList"/>
-            <Icon ClassName= "Icons" Url={Settings} Name="Settings"/>
+          <Nav />
+          <div className="IconsContainer">
+            <Handshake onClick = {() => this.onClickfunc("Handshake")}
+            className= {"Icons" + (this.state.clickedIcon === "Handshake" ? " active" : "")} id="Handshake"/>
+            <TicTacToe onClick = {() => this.onClickfunc("tic tac toe")}
+            className= {"Icons" + (this.state.clickedIcon === "tic tac toe" ? " active" : "")} id="tic tac toe"/>
+            <City onClick = {() => this.onClickfunc("City and Community")}
+            className= {"Icons" + (this.state.clickedIcon === "City and Community" ? " active" : "")} id="City and Community"/>
+            <LinkedList onClick = {() => this.onClickfunc("LinkedList")}
+            className= {"Icons" + (this.state.clickedIcon === "LinkedList" ? " active" : "")} id="LinkedList"/>
+            <Settings onClick = {() => this.onClickfunc("Settings")}
+            className= {"Icons" + (this.state.clickedIcon === "Settings" ? " active" : "")} id="Settings"/>
           </div>
           <AppHeader clickedIcon ={this.state.clickedIcon} />
         </div>

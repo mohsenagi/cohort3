@@ -1,5 +1,4 @@
-.Icons,
-.CityIcon {
+.Icons {
   width: 75px;
   height: 75px;
   overflow: hidden;
@@ -8,11 +7,14 @@
 }
 
 .Icons:hover {
-  animation: rotation 5s infinite linear;
+  /* animation: rotation 10s infinite linear; */
+  transform: scale(1.15);
+  cursor: pointer;
 }
 
-.CityIcon:hover {
-  transform: scale(1.3);
+.active {
+  fill: rgb(74, 160, 25);
+  transform: scale(1.15);
 }
 
 @keyframes rotation {
