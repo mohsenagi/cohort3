@@ -10,15 +10,13 @@ class ThemeProvider extends React.Component {
             fontColor: "White",
             LinkedListTarget: null
         }
-        this.changeFont = this.changeFont.bind(this);
-        this.changeTarget = this.changeTarget.bind(this);
     }
 
-    changeTarget (target) {
+    changeTarget = (target) => {
         this.setState({LinkedListTarget: target});
     }
 
-    changeFont (event) {
+    changeFont = (event) => {
         this.setState({fontColor: event.target.value});
     }
 

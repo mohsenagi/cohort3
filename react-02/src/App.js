@@ -63,7 +63,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      clickedIcon: "Settings",
+      clickedIcon: "City and Community",
     };
   }
   onClickfunc = (name) => {

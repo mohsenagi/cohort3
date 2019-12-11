@@ -37,19 +37,6 @@ class CityandCommunity extends React.Component {
             movingNumber: "",
             search: ""
         }
-        this.unselect = this.unselect.bind(this);
-        this.newCityNameChange = this.newCityNameChange.bind(this);
-        this.newCityLatChange = this.newCityLatChange.bind(this);
-        this.newCityLongChange = this.newCityLongChange.bind(this);
-        this.newCityPopChange = this.newCityPopChange.bind(this);
-        this.movingNumberChange = this.movingNumberChange.bind(this);
-        this.searchChange = this.searchChange.bind(this);
-        this.addNew = this.addNew.bind(this);
-        this.total = this.total.bind(this);
-        this.north = this.north.bind(this);
-        this.south = this.south.bind(this);
-        this.moveIn = this.moveIn.bind(this);
-        this.moveOut = this.moveOut.bind(this);
     }
     componentDidMount(){
         let newCommunity = new Community();
@@ -77,7 +64,7 @@ class CityandCommunity extends React.Component {
         );
     }
     
-    async loadCanada () {
+    loadCanada = async () => {
         let cityCana = await fetchfunctions.loadLocal();
         let newCommunity = this.state.community;
         for (let i=0; i < cityCana.length; i++) {
@@ -96,7 +83,7 @@ class CityandCommunity extends React.Component {
         })
     }
 
-    async delete(key) {
+    delete = async (key) => {
         if (this.state.message.includes("Please wait ...")) return
         let message = "Please wait ..."
         this.setState({message: message})
@@ -112,7 +99,7 @@ class CityandCommunity extends React.Component {
         }
         this.setState({community : newCommunity, selected : null, message : message});
     }
-    async addNew () {
+    addNew = async () => {
         if (this.state.message.includes("Please wait ...")) return
         if (this.state.newCityName !== "" && this.state.newCityLat !== "" && this.state.newCityLong !== ""){
             this.setState({message: "Please wait ..."})
@@ -136,20 +123,20 @@ class CityandCommunity extends React.Component {
             this.setState({message: message})
         } 
     }
-    total () {
+    total = () => {
         if (this.state.message.includes("Please wait ...")) return
         let newCommunity = this.state.community;
         let message = `The total population of the community is ${newCommunity.getPopulation()}`
         this.setState({message: message})
     }
-    north () {
+    north = () => {
         if (this.state.message.includes("Please wait ...")) return
         let newCommunity = this.state.community;
         let MostNorthern = newCommunity.getMostNorthern();
         let message = `${MostNorthern.Name} is the most southern city with the latitude of ${MostNorthern.Latitude}.`
         this.setState({message: message})
     }
-    south () {
+    south = () => {
         if (this.state.message.includes("Please wait ...")) return
         let newCommunity = this.state.community;
         let MostSouthern = newCommunity.getMostSouthern();
@@ -157,7 +144,7 @@ class CityandCommunity extends React.Component {
         this.setState({message: message})
     }
 
-    async moveIn () {
+    moveIn = async () => {
         if (this.state.message.includes("Please wait ...")) return
         if (this.state.movingNumber !== "") {
             let message = "Please wait ..."
@@ -180,7 +167,7 @@ class CityandCommunity extends React.Component {
 
     }
 
-    async moveOut () {
+    moveOut = async () => {
         if (this.state.message.includes("Please wait ...")) return
         if (this.state.movingNumber !== "") {
             let message = "Please wait ..."
@@ -203,37 +190,17 @@ class CityandCommunity extends React.Component {
 
     }
 
-    newCityNameChange (event) {
+    handleChange = (event) => {
         if (this.state.message.includes("Please wait ...")) return
-        this.setState({newCityName: event.target.value});
-    }
-    newCityLatChange (event) {
-        if (this.state.message.includes("Please wait ...")) return
-        this.setState({newCityLat: event.target.value});
-    }
-    newCityLongChange (event) {
-        if (this.state.message.includes("Please wait ...")) return
-        this.setState({newCityLong: event.target.value});
-    }
-    newCityPopChange (event) {
-        if (this.state.message.includes("Please wait ...")) return
-        this.setState({newCityPop: event.target.value});
-    }
-    movingNumberChange (event) {
-        if (this.state.message.includes("Please wait ...")) return
-        this.setState({movingNumber: event.target.value});
-    }
-    searchChange (event) {
-        if (this.state.message.includes("Please wait ...")) return
-        this.setState({search: event.target.value});
+        this.setState({[event.target.name]: event.target.value});
     }
 
-    select(e, key) {
+    select = (e, key) => {
         if (this.state.message.includes("Please wait ...")) return
         if (e.target.className === "closeX") return;        
         this.setState({selected: key, message: ""})
     }
-    unselect(e) {
+    unselect = (e) => {
         if (this.state.message.includes("Please wait ...")) return
         if (e.target.className === "CityandCommunity" ||
             e.target.id === "leftSide" ||
@@ -264,14 +231,14 @@ class CityandCommunity extends React.Component {
             <div className="CityandCommunity" onClick={this.unselect} >
                 <div id="leftSide">
                     <div id="inputsContainer">
-                        <input type="text" placeholder="City Name" id="input1"
-                        value={this.state.newCityName} onChange={this.newCityNameChange}></input>
-                        <input type="number" placeholder="City Latitude" id="input2"
-                        value={this.state.newCityLat} onChange={this.newCityLatChange}></input>
-                        <input type="number" placeholder="City Longitude" id="input3"
-                        value={this.state.newCityLong} onChange={this.newCityLongChange}></input>
-                        <input type="number" placeholder="City Population" id="input4"
-                        value={this.state.newCityPop} onChange={this.newCityPopChange}></input>
+                        <input type="text" placeholder="City Name" id="input1" name="newCityName"
+                        value={this.state.newCityName} onChange={this.handleChange}></input>
+                        <input type="number" placeholder="City Latitude" id="input2" name="newCityLat"
+                        value={this.state.newCityLat} onChange={this.handleChange}></input>
+                        <input type="number" placeholder="City Longitude" id="input3" name="newCityLong"
+                        value={this.state.newCityLong} onChange={this.handleChange}></input>
+                        <input type="number" placeholder="City Population" id="input4" name="newCityPop"
+                        value={this.state.newCityPop} onChange={this.handleChange}></input>
                     </div>
                         <button className="addNew" onClick ={this.addNew} >Add New City</button>
                         <div id = "cardsContainer">
@@ -280,8 +247,8 @@ class CityandCommunity extends React.Component {
                                 <button className = "extraButtons" onClick={this.total} >Total Population</button>
                                 <button className = "extraButtons" onClick={this.north}>Most Northern</button>
                                 <button className = "extraButtons" onClick={this.south}>Most Southern</button>
-                                <input type="text" placeholder="Search by Name" id="input6"
-                                value={this.state.search} onChange={this.searchChange}></input>
+                                <input type="text" placeholder="Search by Name" id="input6" name="search"
+                                value={this.state.search} onChange={this.handleChange}></input>
                             </div>}
                             {cards}
                         </div>
@@ -294,8 +261,8 @@ class CityandCommunity extends React.Component {
                             {cityInfo}
                         </div>
                         <div className = "moving">
-                            <input type="number" placeholder="Number of people" id="input5"
-                            value={this.state.movingNumber} onChange={this.movingNumberChange}></input>
+                            <input type="number" placeholder="Number of people" id="input5" name="movingNumber"
+                            value={this.state.movingNumber} onChange={this.handleChange}></input>
                             <button className="moveIn" onClick ={this.moveIn} >Moved In</button>
                             <button className="moveOut" onClick ={this.moveOut}>Moved Out</button>
                         </div>
