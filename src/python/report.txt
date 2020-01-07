@@ -1,0 +1,13 @@
+total count in Residential: 1263734.0
+total count in Industrial: 922.0
+total count in Major Park: 0.0
+total count in Residual Sub Area: 0.0
+
+total count in CENTRE: 199977.0
+total count in SOUTH: 227345.0
+total count in NORTHEAST: 185534.0
+total count in NORTHWEST: 174126.0
+total count in NORTH: 160502.0
+total count in SOUTHEAST: 135009.0
+total count in EAST: 57666.0
+total count in WEST: 124497.0
