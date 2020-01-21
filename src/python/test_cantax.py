@@ -14,5 +14,5 @@ def test_taxcal():
     assert taxcal(100000, 'BC') == 7262.47
     assert taxcal(150000, 'BC') == 14286.97
     assert taxcal(250000, 'BC') == 31005.07
-    assert taxcal(300000, 'BC') == 31005.07
+    assert taxcal(300000, 'BC') == 39405.07
 
